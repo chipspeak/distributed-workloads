@@ -29,6 +29,8 @@ import (
 const (
 	// The environment variable referring to image simulating sleep condition in container
 	sleepImageEnvVar = "SLEEP_IMAGE"
+	// Python command used to verify the CodeFlare SDK installed in a notebook image.
+	codeflareSDKVersionCheck = `python -c 'import importlib.metadata as metadata; from codeflare_sdk import RayJob; from codeflare_sdk.ray.cluster.config import ClusterConfiguration; from codeflare_sdk.ray.rayjobs.config import build_ray_cluster_spec; version = metadata.version("codeflare-sdk"); print(f"codeflare-sdk version: {version}"); print(f"ClusterConfiguration: {ClusterConfiguration.__module__}.{ClusterConfiguration.__name__}"); print(f"RayJob: {RayJob.__module__}.{RayJob.__name__}"); assert callable(build_ray_cluster_spec), f"codeflare-sdk {version} does not provide codeflare_sdk.ray.rayjobs.config.build_ray_cluster_spec"'`
 	// Name of the authenticated Notebook user
 	notebookUserName = "NOTEBOOK_USER_NAME"
 	// Token of the authenticated Notebook user
@@ -67,6 +69,12 @@ const (
 var testTiers = []string{tierSmoke, tier1, tier2, tier3, preUpgrade, postUpgrade, kftoCuda, kftoRocm, examplesCuda, examplesRocm}
 
 var testTierParam string
+
+// GetCodeflareSDKVersionCheckCommand returns a shell command that reports the
+// installed CodeFlare SDK version and verifies the API required by RayJob.
+func GetCodeflareSDKVersionCheckCommand() string {
+	return codeflareSDKVersionCheck
+}
 
 func GetNotebookUserName(t Test) string {
 	name, ok := os.LookupEnv(notebookUserName)

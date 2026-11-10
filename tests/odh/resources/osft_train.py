@@ -49,6 +49,7 @@ osft(
     max_tokens_per_gpu=MAX_TOKENS_PER_GPU,
     effective_batch_size=EFFECTIVE_BATCH_SIZE,
     learning_rate=LEARNING_RATE,
+    disable_flash_attn=True,
 )
 print("OSFT training completed")
 

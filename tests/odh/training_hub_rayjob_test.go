@@ -61,6 +61,7 @@ func trainingHubRayJob(t *testing.T, algorithm string, numGpus int) {
 	userName := GetNotebookUserName(test)
 	userToken := GetNotebookUserToken(test)
 	CreateUserRoleBindingWithClusterRole(test, userName, namespace.Name, "admin")
+	CreateServiceAccountRoleBindingWithClusterRole(test, "jupyter-nb-kube-3aadmin", namespace.Name, "admin")
 
 	rayTrainingHubImage := GetRayTrainingHubImage()
 
@@ -157,7 +158,8 @@ func getTrainingHubNotebookCommand(rayImage, scriptConfigMap, algorithm, pvcName
 		"/bin/sh",
 		"-c",
 		s3Exports +
-			"pip install papermill huggingface_hub datasets s3fs && " +
+			"pip install papermill huggingface_hub datasets s3fs codeflare-sdk==0.40.1 && " +
+			GetCodeflareSDKVersionCheckCommand() + " && " +
 			"if papermill /opt/app-root/notebooks/{{.NotebookConfigMapFileName}}" +
 			" /opt/app-root/src/mcad-out.ipynb -p namespace {{.Namespace}} -p ray_image " + rayImage +
 			fmt.Sprintf(" -p script_configmap %s -p algorithm %s -p pvc_name %s", scriptConfigMap, algorithm, pvcName) +

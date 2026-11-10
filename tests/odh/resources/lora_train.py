@@ -60,6 +60,7 @@ lora_sft(
     learning_rate=LEARNING_RATE,
     lora_r=LORA_R,
     lora_alpha=LORA_ALPHA,
+    disable_flash_attn=True,
 )
 print("LoRA SFT training completed")
 

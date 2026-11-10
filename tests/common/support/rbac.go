@@ -236,3 +236,42 @@ func CreateUserRoleBindingWithClusterRole(t Test, userName string, namespace str
 
 	return rb
 }
+
+// CreateServiceAccountRoleBindingWithClusterRole grants a ClusterRole to a
+// service account within a namespace.
+func CreateServiceAccountRoleBindingWithClusterRole(t Test, serviceAccountName string, namespace string, roleName string) *rbacv1.RoleBinding {
+	t.T().Helper()
+
+	roleBinding := &rbacv1.RoleBinding{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: rbacv1.SchemeGroupVersion.String(),
+			Kind:       "RoleBinding",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			GenerateName: "rb-",
+			Namespace:    namespace,
+		},
+		RoleRef: rbacv1.RoleRef{
+			Kind:     "ClusterRole",
+			Name:     roleName,
+			APIGroup: rbacv1.SchemeGroupVersion.Group,
+		},
+		Subjects: []rbacv1.Subject{
+			{
+				Kind:      "ServiceAccount",
+				Name:      serviceAccountName,
+				Namespace: namespace,
+			},
+		},
+	}
+
+	rb, err := t.Client().Core().RbacV1().RoleBindings(namespace).Create(t.Ctx(), roleBinding, metav1.CreateOptions{})
+	t.Expect(err).NotTo(gomega.HaveOccurred())
+	t.T().Logf("Created ServiceAccount RoleBinding %s/%s successfully", rb.Namespace, rb.Name)
+
+	t.T().Cleanup(func() {
+		t.Client().Core().RbacV1().RoleBindings(namespace).Delete(t.Ctx(), rb.Name, metav1.DeleteOptions{})
+	})
+
+	return rb
+}

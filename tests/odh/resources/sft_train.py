@@ -49,6 +49,7 @@ sft(
     effective_batch_size=EFFECTIVE_BATCH_SIZE,
     learning_rate=LEARNING_RATE,
     num_epochs=NUM_EPOCHS,
+    disable_flash_attn=True,
 )
 print("SFT training completed")
 

@@ -132,8 +132,8 @@ github.com/prometheus/common v0.72.0 h1:tAYsE+sPJxIncDAobm4H5aQjmox9ZxEIIqPbiffa
 github.com/prometheus/common v0.72.0/go.mod h1:77NWqAQ2tXT7BIK40qjJdw5Acrsrg1TlHAnsQi3i6mk=
 github.com/prometheus/procfs v0.22.0 h1:6q9+/JL9IKAPbCmBrv9n5O5Ty3NKnciV5X7YGw0oics=
 github.com/prometheus/procfs v0.22.0/go.mod h1:CvmFr/GVhIjIvWJZW3tgkODBQMRIf0EyWMQLHCHab58=
-github.com/ray-project/kuberay/ray-operator v1.5.1 h1:7FJYmB8oM+cnjv1VYCj/TfzRZG4XHvvt5Ayn5pZ5A1c=
-github.com/ray-project/kuberay/ray-operator v1.5.1/go.mod h1:itUPJnr3QwoZT70gRgsWFpBolquuZtDRCkdA1lrAb7Y=
+github.com/ray-project/kuberay/ray-operator v1.7.1 h1:SPDaeg579g1IWh00S7APdW7wR6I9OV/EyK9awW8m3vs=
+github.com/ray-project/kuberay/ray-operator v1.7.1/go.mod h1:rk7rIgHYLnBs9ccN+pgCKMOzCR0FB2v0A0Yz2iN5Odo=
 github.com/rs/xid v1.6.0 h1:fV591PaemRlL6JfRxGDEPl69wICngIQ3shQtzfy2gxU=
 github.com/rs/xid v1.6.0/go.mod h1:7XoLgs4eV+QndskICGsho+ADou8ySMSjJKDIan90Nz0=
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=

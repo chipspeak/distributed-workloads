@@ -19,7 +19,7 @@ package common
 import (
 	"bytes"
 	"embed"
-	"strings"
+	"encoding/json"
 
 	gomega "github.com/onsi/gomega"
 
@@ -73,7 +73,9 @@ func CreateNotebook(test support.Test, namespace *corev1.Namespace, notebookUser
 	s3SecretAccessKey, _ := support.GetStorageBucketSecretKey()
 	s3Endpoint, _ := support.GetStorageBucketDefaultEndpoint()
 	s3DefaultRegion, _ := support.GetStorageBucketDefaultRegion()
-	strCommand := "[\"" + strings.Join(command, "\",\"") + "\"]"
+	strCommandBytes, err := json.Marshal(command)
+	test.Expect(err).NotTo(gomega.HaveOccurred())
+	strCommand := string(strCommandBytes)
 
 	if !s3BucketNameExists {
 		s3BucketName = "''"
